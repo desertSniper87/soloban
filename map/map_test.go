@@ -3,7 +3,7 @@ package _map
 import "testing"
 
 
-func TestAbs(t *testing.T) {
+func TestCoordinate(t *testing.T) {
 	c1 := coordiante{1, 1}
 	c2 := coordiante{1, 2}
 	c3 := coordiante{1, 1}
