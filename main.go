@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/soloban/utils"
+	"github.com/desertsniper87/soloban/utils"
 	"io/ioutil"
 )
 
