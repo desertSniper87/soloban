@@ -1,12 +1,12 @@
-package _map
+package playground
 
 import "testing"
 
 
 func TestCoordinate(t *testing.T) {
-	c1 := coordiante{1, 1}
-	c2 := coordiante{1, 2}
-	c3 := coordiante{1, 1}
+	c1 := Coordiante{1, 1}
+	c2 := Coordiante{1, 2}
+	c3 := Coordiante{1, 1}
 
 	var result bool
 	var want bool

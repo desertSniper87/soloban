@@ -1,4 +1,4 @@
-package _map
+package playground
 
 type node struct {
 	cost int
