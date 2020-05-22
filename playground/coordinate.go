@@ -1,5 +1,7 @@
 package playground
 
+type SetCoord map[Coordiante]bool
+
 type Coordiante struct {
 	Row int
 	Col int
