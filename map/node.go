@@ -1,5 +1,7 @@
-package main
+package _map
 
-func main() {
-	$END$
+type node struct {
+	cost int
+
 }
+

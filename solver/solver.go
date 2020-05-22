@@ -1,5 +1,4 @@
-package main
+package solver
 
-func main() {
-	$END$
-}
+
+
