@@ -1,8 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"soloban/utils"
-	"io/ioutil"
 )
 
 func check(err error) {
@@ -12,9 +13,14 @@ func check(err error) {
 }
 
 func main() {
-	lvl_dat, err := ioutil.ReadFile("levels/original/level1")
+	file, err := os.Open("levels/original/level1")
 	check(err)
+	defer file.Close()
 
-	utils.Load_level(lvl_dat)
+	problem := utils.Load_level(*file)
+	for k, _ := range problem.Walls {
+		fmt.Println(k)
+	}
+	//solver.DFS(problem)
 }
 
