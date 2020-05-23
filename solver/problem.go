@@ -1,7 +1,6 @@
 package solver
 
 import (
-	"fmt"
 	"soloban/playground"
 )
 
@@ -47,8 +46,8 @@ func (problem Problem) actions (state State) []Direction {
 	for _, d := range []Direction{up, down, left, right}{
 		newCoordinate := playground.Coordiante{
 			// Probable player coordinate
-			Row: playerCol + d.X,
-			Col: playerRow + d.Y,
+			Row: playerRow + d.X,
+			Col: playerCol + d.Y,
 		}
 
 /*		newBoxCoordinate := playground.Coordiante{
@@ -58,18 +57,7 @@ func (problem Problem) actions (state State) []Direction {
 		}*/
 
 
-		fmt.Println(newCoordinate)
-		fmt.Println(problem.Walls.Contains(newCoordinate))
-		fmt.Println(boxes.Contains(newCoordinate))
-
-		for coordiante, _ := range problem.Walls {
-			if coordiante.Row == newCoordinate.Row{
-
-				fmt.Print(coordiante)
-			}
-		}
-
-		if !(problem.Walls.Contains(newCoordinate) && boxes.Contains(newCoordinate)) {
+		if !problem.Walls.Contains(newCoordinate) && !boxes.Contains(newCoordinate) {
 			actionList = append(actionList, d)
 		}
 

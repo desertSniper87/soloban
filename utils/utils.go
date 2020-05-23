@@ -9,14 +9,13 @@ import (
 )
 
 func Load_level(file os.File) solver.Problem {
-	row := 0
-	col := 0
 	var player playground.Coordiante
 
 	walls := make(playground.SetCoord)
 	goals := make(playground.SetCoord)
 	boxes := make(playground.SetCoord)
 
+	row := 0
 	maxCol := 0
 
 	scanner := bufio.NewScanner(&file)
@@ -37,7 +36,7 @@ func Load_level(file os.File) solver.Problem {
 			} else if dat[i] == '.' {
 				goals[c] = true
 			} else if dat[i] == '@' {
-				player = playground.Coordiante{row, col}
+				player = playground.Coordiante{row, i}
 			}
 		}
 		row ++

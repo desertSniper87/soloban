@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"os"
+	"soloban/solver"
 	"soloban/utils"
 )
 
@@ -18,9 +18,7 @@ func main() {
 	defer file.Close()
 
 	problem := utils.Load_level(*file)
-	for k, _ := range problem.Walls {
-		fmt.Println(k)
-	}
-	//solver.DFS(problem)
+
+	solver.DFS(problem)
 }
 

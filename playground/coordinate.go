@@ -1,6 +1,7 @@
 package playground
 
 import (
+	"fmt"
 	"reflect"
 )
 /*
@@ -36,14 +37,16 @@ func (set1 SetCoord) Equal(set2 SetCoord) bool {
 }
 
 func (set SetCoord) Contains(coordiante Coordiante) bool {
-	//for s, _ := range set{
-	//	fmt.Println(s)
-	//}
-
 	if set[coordiante] == true {
 		return true
 	}
 	return false
+}
+
+func (set SetCoord) Print() {
+	for k, _ := range set {
+		fmt.Println(k)
+	}
 }
 
 type StackCoord []Coordiante
