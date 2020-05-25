@@ -12,8 +12,10 @@ type Coordiante struct {
 	Col int
 }
 
-func (c Coordiante) HashCode() int  {
-	return c.Row * 1000 + c.Row
+func (c Coordiante) HashCode() uint  {
+	row := uint(c.Row)
+	col := uint(c.Col)
+	return row * 1000 + col
 }
 
 func (coordiante1 Coordiante) equals(coordiante2 Coordiante) bool {

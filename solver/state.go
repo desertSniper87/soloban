@@ -9,10 +9,10 @@ type State struct {
 	Player playground.Coordiante
 }
 
-func (s State) hashCode() int {
-	result := 1
+func (s State) hashCode() uint {
+	var result uint = 1
 	for b := range s.Boxes {
-		result *= 37 + b.HashCode()
+		result *= (37) + b.HashCode()
 	}
 
 	result *= 37 * result + s.Player.HashCode()
@@ -31,7 +31,7 @@ func (s StackState) Pop() (State, StackState) {
 }
 
 
-type SetState map[int]bool
+type SetState map[uint]bool
 
 /*
 	We are comparing the hashcodes for keeping track.

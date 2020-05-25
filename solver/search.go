@@ -32,7 +32,10 @@ func DFS(problem Problem) []Direction {
 		for _, a := range actions {
 			child := node.getChild(a, false)
 
-			if (!explored.Contains(child.State)) && (!(fringe.Contains(child))) {
+			//fmt.Println("explored: ", explored)
+			fmt.Println("child.State: ", child.State.Player)
+			//fmt.Println(child.State.hashCode())
+			if !explored.Contains(child.State) && !fringe.Contains(child) {
 				solution := child.showSolution()
 				if solution == nil {
 					fmt.Println("Failed to solve the puzzle")
