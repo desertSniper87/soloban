@@ -21,7 +21,7 @@ func (node Node) getChild(action Direction, isUCS bool) Node {
 		Col: node.State.Player.Col + action.Y,
 	}
 
-	newBoxCoordinate := playground.Coordiante { // Probable player coordinate
+	newBoxCoordinate := playground.Coordiante { // Probable box coordinate
 		Row: node.State.Player.Row + action.X * 2,
 		Col: node.State.Player.Col + action.Y * 2,
 	}

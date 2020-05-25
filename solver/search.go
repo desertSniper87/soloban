@@ -31,9 +31,10 @@ func DFS(problem Problem) []Direction {
 
 		for _, a := range actions {
 			child := node.getChild(a, false)
+			problem.print(child.State)
 
 			//fmt.Println("explored: ", explored)
-			fmt.Println("child.State: ", child.State.Player)
+			//fmt.Println("child.State: ", child.State.Player)
 			//fmt.Println(child.State.hashCode())
 			if !explored.Contains(child.State) && !fringe.Contains(child) {
 				solution := child.showSolution()

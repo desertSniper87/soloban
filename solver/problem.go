@@ -1,6 +1,7 @@
 package solver
 
 import (
+	"fmt"
 	"soloban/playground"
 )
 
@@ -9,10 +10,10 @@ type Direction struct {
 	Y int
 }
 
-var left = Direction{-1, 0}
-var right = Direction{1, 0}
-var up = Direction{0, 1}
-var down = Direction{0, -1}
+var left = Direction{0, -1}
+var right = Direction{0, 1}
+var up = Direction{1, 0}
+var down = Direction{-1, 0}
 
 type Problem struct {
 	State State
@@ -24,15 +25,50 @@ type Problem struct {
 	Dim     playground.Coordiante
 }
 
-func (problem Problem) print() {
-	/*	data := make([]string, problem.Dim.Row*problem.Dim.Col)
+func (problem Problem) print(state State) {
+	data := make([][]rune, problem.Dim.Row)
+	var r int
+	var c int
 
-		for k, _ := range problem.Walls {
-			data[k.Row][k.Col] = "#"
+	for i := 0; i < problem.Dim.Row; i++ {
+		data[i] = make([]rune, problem.Dim.Col)
+	}
+
+	for i := 0; i < problem.Dim.Row; i++ {
+		for j := 0; j < problem.Dim.Col; j++ {
+			data[i][j] = ' '
 		}
-		for i, _ := range problem.Dim.Row {
-			data[i] = string('\n')
-		}*/
+	}
+
+	for k, _ := range problem.Walls {
+		r = k.Row
+		c = k.Col
+
+		data[r][c] = '#'
+	}
+
+	for k, _ := range problem.Goals {
+		r = k.Row
+		c = k.Col
+
+		data[r][c] = '.'
+	}
+
+	for k, _ := range state.Boxes {
+		r = k.Row
+		c = k.Col
+
+		data[r][c] = '$'
+	}
+
+	data[state.Player.Row][state.Player.Col] = '@'
+
+	for i := 0; i < problem.Dim.Row; i++ {
+		for j := 0; j < problem.Dim.Col; j++ {
+			fmt.Print(string(data[i][j]))
+		}
+		fmt.Println()
+	}
 }
 
 func (problem Problem) actions(state State) []Direction {
@@ -49,16 +85,21 @@ func (problem Problem) actions(state State) []Direction {
 			Col: playerCol + d.Y,
 		}
 
-		/*		newBoxCoordinate := playground.Coordiante{
-				// If there is a box accrose one step.
-				Row: playerCol + d.X * 2,
-				Col: playerRow + d.Y * 2,
-			}*/
-
-		if !problem.Walls.Contains(newCoordinate) && !boxes.Contains(newCoordinate) {
-			actionList = append(actionList, d)
+		newBoxCoordinate := playground.Coordiante{
+			// If there is a box accrose one step.
+			Row: playerRow + d.X * 2,
+			Col: playerCol + d.Y * 2,
 		}
 
+		if !problem.Walls.Contains(newCoordinate) {
+			if boxes.Contains(newCoordinate) &&
+							(boxes.Contains(newBoxCoordinate) || problem.Walls.Contains(newBoxCoordinate)) {
+				/* DEADLOCK HAS BEEN FOUND */
+				/* TODO: HANDLE THIS STATE */
+			} else {
+				actionList = append(actionList, d)
+			}
+		}
 	}
 
 	return actionList
