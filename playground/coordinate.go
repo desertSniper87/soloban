@@ -27,6 +27,10 @@ func (s SetCoord) Add(coordiante Coordiante) {
 	s[coordiante] = true
 }
 
+func (s SetCoord) Remove(coordiante Coordiante) {
+	delete(s, coordiante)
+}
+
 func (set1 SetCoord) Equal(set2 SetCoord) bool {
 	eq := reflect.DeepEqual(set1, set2)
 	if eq {

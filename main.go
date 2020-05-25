@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"soloban/solver"
 	"soloban/utils"
@@ -19,6 +20,12 @@ func main() {
 
 	problem := utils.Load_level(*file)
 
-	solver.DFS(problem)
+	solution := solver.DFS(problem)
+
+	if solution == nil {
+		fmt.Println("No solution found")
+	} else {
+		fmt.Println(solution)
+	}
 }
 

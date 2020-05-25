@@ -6,7 +6,7 @@ func idaStar(problem Problem) {
 
 }
 
-func DFS(problem Problem) {
+func DFS(problem Problem) []Direction {
 	//total_node := 1
 	//redundant := 0
 
@@ -14,7 +14,6 @@ func DFS(problem Problem) {
 		Parent: nil,
 		State: problem.State,
 		cost: 0,
-		move:  "",
 	}
 
 /*	if problem.goal_test {
@@ -24,14 +23,29 @@ func DFS(problem Problem) {
 	explored := SetState{}
 	fringe := StackNode{}
 
-	fringe.Push(node)
+	fringe = fringe.Push(node)
 	for len(fringe) > 0 {
 		node, fringe = fringe.Pop()
 		explored.Add(node.State)
+		actions := problem.actions(node.State)
+
+		for _, a := range actions {
+			child := node.getChild(a, false)
+
+			if (!explored.Contains(child.State)) && (!(fringe.Contains(child))) {
+				solution := child.showSolution()
+				if solution == nil {
+					fmt.Println("Failed to solve the puzzle")
+				} else if problem.goalTest(child.State) {
+					return solution
+				} else if !problem.deadlockTest(child.State) {
+					fringe = fringe.Push(child)
+				} else {
+					//redundant ++
+				}
+			}
+		}
 	}
 
-	fmt.Println(problem.actions(node.State))
-
-
-
+	return nil
 }

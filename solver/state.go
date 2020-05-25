@@ -33,6 +33,18 @@ func (s StackState) Pop() (State, StackState) {
 
 type SetState map[int]bool
 
+/*
+	We are comparing the hashcodes for keeping track.
+*/
+
+func (set SetState) Contains(state State) bool {
+	if set[state.hashCode()] == true {
+		return true
+	}
+	return false
+}
+
+
 func (s SetState) Add(state State) {
 	s[state.hashCode()] = true
 }
