@@ -1,6 +1,9 @@
 package solver
 
-import "soloban/playground"
+import (
+	"container/heap"
+	"soloban/playground"
+)
 
 type Node struct {
 	Parent *Node
@@ -81,7 +84,58 @@ func (s StackNode) Contains(node Node) bool {
 	}
 
 	return false
+}
 
+type nodePriorityQueueItem struct {
+	node Node
+	priority float64
+	index int
+}
+
+type nodePriorityQueue []*nodePriorityQueueItem
+
+func (pq nodePriorityQueue) Len() int {return len(pq)}
+
+func (pq nodePriorityQueue) Less(i, j int) bool {
+	return pq[i].priority > pq[j].priority
+}
+
+func (pq nodePriorityQueue) Swap(i, j int) {
+	pq[i], pq[j] = pq[j], pq[i]
+	pq[i].index = i
+	pq[j].index = j
+}
+
+func (pq *nodePriorityQueue) Push(x interface{}) {
+	n := len(*pq)
+	nodePriorityQueueItem := x.(*nodePriorityQueueItem)
+	nodePriorityQueueItem.index = n
+	*pq = append(*pq, nodePriorityQueueItem)
+}
+
+func (pq *nodePriorityQueue) Pop() interface{} {
+	old := *pq
+	n := len(old)
+	item := old[n-1]
+	old[n-1] = nil  // avoid memory leak
+	item.index = -1 // for safety
+	*pq = old[0 : n-1]
+	return item
+}
+
+func (pq *nodePriorityQueue) Update(item *nodePriorityQueueItem, node Node, priority float64) {
+	item.node = node
+	item.priority = priority
+	heap.Fix(pq, item.index)
+}
+
+func (pq *nodePriorityQueue) Contains(node Node) bool {
+	for _, el := range *pq {
+		if el.node.equals(node) {
+			return true
+		}
+	}
+	return false
 }
 
 

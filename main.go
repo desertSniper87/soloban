@@ -20,7 +20,7 @@ func main() {
 
 	problem := utils.Load_level(*file)
 
-	solution := solver.DFS(problem)
+	solution := solver.PrioritySearch(problem, "greedy")
 
 	if solution == nil {
 		fmt.Println("No solution found")
